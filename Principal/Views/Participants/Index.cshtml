@@ -1,0 +1,35 @@
+﻿@using Principal.Extensions
+@using Microsoft.AspNetCore.Mvc.Localization
+@model ICollection<Participant>
+
+@inject IViewLocalizer Localizer
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+      ViewData["Title"] = @Localizer["Titre"];
+}
+
+    <h1>@Localizer["Titre"]</h1>
+    <p>@Localizer["Explication"] @DateTime.Now.ToLongDateString()</p>
+    <ul>
+        @foreach (Participant participant in Model)
+        {
+             <li>@participant.Prenom :  <email name="@participant.Prenom.RemoveAccents()"></email></li>
+           
+        }
+
+    </ul>
+
+    <hr />
+    <br/>
+   @Html.DisplayFor(m => m, "ListParticipants")
+
+   
+    <hr />
+    <br/>
+   @Html.EditorFor(m => m, "ListParticipants")
+
+
+
+
