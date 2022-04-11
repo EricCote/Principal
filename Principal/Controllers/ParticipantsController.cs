@@ -1,22 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Principal.Data;
+using Principal.Models;
 using Principal.Services;
 
 namespace Principal.Controllers
 {
     public class ParticipantsController : Controller
     {
-        IParticipants _participants;
+        DbParticipants _db;
 
-        public ParticipantsController(IParticipants participants) { 
-            _participants = participants;
+        public ParticipantsController(DbParticipants db) { 
+            _db = db;
         }
 
 
         // GET: ParticipantsController
         public ActionResult Index()
         {
-            return View(_participants.Liste);
+            return View(_db.Participants.ToList<Participant>());
         }
 
         // GET: ParticipantsController/Details/5
@@ -34,11 +36,20 @@ namespace Principal.Controllers
         // POST: ParticipantsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Participant participant)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _db.Participants.Add(participant);
+                    _db.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(participant);
+                }
             }
             catch
             {

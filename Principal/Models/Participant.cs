@@ -4,6 +4,7 @@ namespace Principal.Models
 {
     public class Participant
     {
+        [Key]
         public int ParticipantID { get; set; }
 
         [Required]
@@ -19,7 +20,6 @@ namespace Principal.Models
         [Required]
         public string Courriel { get; set; } = "";
 
-        [Required]
         public string? Telephone { get; set; }
 
 

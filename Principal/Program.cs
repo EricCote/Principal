@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.EntityFrameworkCore;
+using Principal.Data;
 using Principal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +13,19 @@ builder.Services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
 builder.Services.AddSingleton<ICompteur, Compteur>();
-builder.Services.AddSingleton<IParticipants, Participants>();
+//builder.Services.AddSingleton<IParticipants, Participants>();
+
+builder.Services.AddDbContext<DbParticipants>(options =>
+         options.UseSqlite("Data Source=Participants.db"));
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DbParticipants>();
+    db.Database.EnsureDeleted();
+    db.Database.EnsureCreated();
+}
 
 
 
