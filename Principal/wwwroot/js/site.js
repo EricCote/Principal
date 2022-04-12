@@ -2,3 +2,9 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+
+String.prototype.toProperCase = function () {
+    return this.substr(0, 1).toUpperCase() +
+           this.substr(1)   .toLowerCase();
+}

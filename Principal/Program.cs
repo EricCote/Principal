@@ -5,6 +5,8 @@ using Principal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -16,7 +18,11 @@ builder.Services.AddSingleton<ICompteur, Compteur>();
 //builder.Services.AddSingleton<IParticipants, Participants>();
 
 builder.Services.AddDbContext<DbParticipants>(options =>
-         options.UseSqlite("Data Source=Participants.db"));
+         options.UseSqlite("Data Source=Databases/Participants.db"));
+
+//builder.Services.AddDbContext<DbAw>(options =>
+//         options.UseSqlServer(builder.Configuration["ConnectionStrings:AW"])
+//);
 
 var app = builder.Build();
 

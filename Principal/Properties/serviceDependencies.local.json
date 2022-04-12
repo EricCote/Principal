@@ -5,8 +5,8 @@
     },
     "mssql1": {
       "secretStore": "LocalSecretsFile",
-      "type": "mssql.onprem",
-      "connectionId": "aw"
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:AW"
     }
   }
 }
