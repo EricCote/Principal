@@ -20,9 +20,13 @@ builder.Services.AddSingleton<ICompteur, Compteur>();
 builder.Services.AddDbContext<DbParticipants>(options =>
          options.UseSqlite("Data Source=Databases/Participants.db"));
 
-//builder.Services.AddDbContext<DbAw>(options =>
-//         options.UseSqlServer(builder.Configuration["ConnectionStrings:AW"])
-//);
+builder.Services.AddDbContext<AwContext>(options =>
+        options.UseSqlServer(builder.Configuration["ConnectionStrings:AW"])
+);
+
+builder.Services.AddDbContext<LearningContext>(options =>
+        options.UseSqlServer(builder.Configuration["ConnectionStrings:Learning"])
+);
 
 var app = builder.Build();
 
